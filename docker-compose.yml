@@ -1,0 +1,13 @@
+services:
+  openvpn:
+    restart: 'unless-stopped'
+    image: 'local/openvpn:latest'
+    build: '.'
+    environment:
+      - FRR_DAEMONS=bgpd
+      - LOCAL_NETWORKS=192.168.0.0/16
+      - CONTAINER_GATEWAY=192.168.255.1
+    volumes:
+      - './data/frr:/etc/frr'
+      - './data/openvpn:/etc/openvpn'
+    privileged: true

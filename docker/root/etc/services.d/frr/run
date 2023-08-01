@@ -1,0 +1,19 @@
+#!/usr/bin/with-contenv bash
+
+## Copy default config if it doesn't exist
+if [ ! -f /etc/frr/daemons ] ; then
+  cp /usr/lib/frr/default/daemons /etc/frr/
+fi
+if [ ! -f /etc/frr/vtysh.conf ] ; then
+  cp /usr/lib/frr/default/vtysh.conf /etc/frr/
+fi
+
+## Create directories and set permissions
+mkdir /var/run/frr
+chown -R :frr /var/run/frr /etc/frr
+chmod -R g+w /var/run/frr /etc/frr
+
+## Start FRR Daemon itself
+echo "Starting FRRouting"
+exec \
+    /usr/lib/frr/watchfrr zebra ${FRR_DAEMONS} staticd

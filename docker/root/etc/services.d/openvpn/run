@@ -1,0 +1,6 @@
+#!/usr/bin/with-contenv bash
+
+## Start OpenVPN Daemon
+echo "Starting OpenVPN"
+exec \
+    /usr/sbin/openvpn --config /etc/openvpn/openvpn.conf
